@@ -11,8 +11,8 @@ export interface CopaConfig {
   github_token?: string;
 }
 
-function getConfigDir(): string {
-  const dir = join(homedir(), ".config", "copa");
+export function getConfigDir(): string {
+  const dir = process.env.COPA_CONFIG_DIR ?? join(homedir(), ".config", "copa");
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
   }
