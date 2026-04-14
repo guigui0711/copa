@@ -1,0 +1,21 @@
+{
+  "name": "copa",
+  "version": "0.1.0",
+  "description": "Copilot-to-Anthropic proxy — use GitHub Copilot tokens with Claude Code",
+  "type": "module",
+  "bin": {
+    "copa": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "build": "bun build src/cli.ts --outdir dist --target bun --minify",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.8.0"
+  }
+}
