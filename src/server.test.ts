@@ -273,13 +273,13 @@ describe("server", () => {
           headers: {
             "Content-Type": "application/json",
             "anthropic-version": "2023-06-01",
-            "anthropic-beta": "context-1m",
+            "anthropic-beta": "max-tokens-3-5-sonnet-2024-07-15",
           },
         });
 
         const [, opts] = fetchMock.mock.calls[0];
         expect(opts.headers["anthropic-version"]).toBe("2023-06-01");
-        expect(opts.headers["anthropic-beta"]).toBe("context-1m");
+        expect(opts.headers["anthropic-beta"]).toBe("max-tokens-3-5-sonnet-2024-07-15");
       } finally {
         globalThis.fetch = originalFetch;
       }
