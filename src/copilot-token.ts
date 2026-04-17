@@ -93,3 +93,17 @@ export async function getCopilotToken(githubToken: string): Promise<CopilotToken
 export function clearCopilotToken(): void {
   cachedToken = null;
 }
+
+/**
+ * If the cached token is close to expiry, proactively refresh it.
+ * Call this before starting a long-running stream to avoid mid-stream expiry.
+ * Uses a tighter buffer (5 min) than the normal refresh (2 min).
+ */
+export async function refreshCopilotTokenIfNeeded(githubToken: string): Promise<void> {
+  const STREAM_REFRESH_BUFFER_MS = 5 * 60 * 1000;
+  const now = Date.now();
+  if (!cachedToken || cachedToken.expiresAt * 1000 - now < STREAM_REFRESH_BUFFER_MS) {
+    console.log("[copa] proactively refreshing token before stream");
+    cachedToken = await exchangeToken(githubToken);
+  }
+}
